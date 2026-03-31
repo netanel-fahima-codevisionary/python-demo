@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from order_utils import fetch_data_from_database
 
 CONNECTION_STRING = "Your_Connection_String_Here"
-QUERY = "SELECT OrderID, CustomerName, OrderDate FROM ORDERS LIMIT 1"
+
 
 app = FastAPI()
 
@@ -17,7 +17,7 @@ def _format_order(order_row: dict) -> dict:
 
 @app.get("/orders/top")
 def get_top_order() -> dict:
-    orders = fetch_data_from_database(CONNECTION_STRING, QUERY)
+    orders = fetch_data_from_database(CONNECTION_STRING, "SELECT OrderID, CustomerName, OrderDate FROM ORDERS")
 
     if not orders:
         return {"message": "No orders found"}
